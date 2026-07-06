@@ -85,24 +85,24 @@ function canvasToBlob(canvas) {
 }
 
 /**
- * Placeholder for brand-direction generation.
- *
- * IMPORTANT: this cannot call the Anthropic API directly from the browser —
- * that would expose your API key to every visitor. Instead, deploy a small
- * serverless function (e.g. a Vercel API route at /api/generate-brand) that:
- *   1. receives the doodle image + vibe from this frontend
- *   2. calls the Anthropic API server-side with your key in an env variable
- *   3. returns the generated brand direction (logo idea, palette, type, etc.)
- *
- * For now this returns placeholder data so the flow is testable end-to-end.
+ * Calls the /api/generate-brand serverless function, which runs
+ * server-side on Vercel and holds the Anthropic API key securely
+ * (via the ANTHROPIC_API_KEY environment variable). The key never
+ * touches this frontend code.
  */
 async function generateBrandDirection(imageUrl, vibe) {
-  await new Promise((r) => setTimeout(r, 1500)); // simulate processing
-  return {
-    palette: ["#0a0a0a", "#f5f5f5", "#8a8a8a", "#e0e0e0"],
-    typeface: "Outfit",
-    note: `This is placeholder output for the "${vibe || "default"}" vibe. Wire up /api/generate-brand to get real results.`,
-  };
+  const response = await fetch('/api/generate-brand', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ imageUrl, vibe }),
+  });
+
+  if (!response.ok) {
+    const errData = await response.json().catch(() => ({}));
+    throw new Error(errData.error || `Generation failed (status ${response.status})`);
+  }
+
+  return response.json();
 }
 
 function initGenerateFlow() {

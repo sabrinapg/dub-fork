@@ -1,0 +1,9 @@
+{
+  "name": "dub",
+  "version": "1.0.0",
+  "private": true,
+  "description": "dub — everything starts with a doodle",
+  "engines": {
+    "node": ">=18.x"
+  }
+}

@@ -40,9 +40,12 @@ insert into storage.buckets (id, name, public)
 values ('doodles', 'doodles', true)
 on conflict (id) do nothing;
 
-create policy "Public read doodle images"
-  on storage.objects for select
-  using (bucket_id = 'doodles');
+-- Intentionally NO select/list policy here.
+-- The bucket is public, so individual files are downloadable via their
+-- direct URL (which the app stores in the `doodles` table) without any
+-- RLS policy needed. A select policy on storage.objects would additionally
+-- let anyone call storage.from('doodles').list() and enumerate every file
+-- in the bucket -- which the app never needs and shouldn't expose.
 
 create policy "Public upload doodle images"
   on storage.objects for insert
