@@ -1,0 +1,225 @@
+/* ============================================================
+   dub — shared styles
+   Base palette/typography match the original brand:
+   black/white, Outfit typeface, editorial minimal look.
+   ============================================================ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --black: #0a0a0a;
+  --white: #ffffff;
+  --gray: #f5f5f5;
+  --border: #e0e0e0;
+  --gray-mid: #8a8a8a;
+}
+
+body {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 400;
+  background: var(--white);
+  color: var(--black);
+  overflow-x: hidden;
+}
+
+/* ── PAGE SYSTEM ── */
+.page { display: none; min-height: 100vh; }
+.page.active { display: block; }
+.page-content { padding-top: 56px; }
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 40px; height: 56px;
+}
+.nav-logo {
+  font-weight: 700; font-size: 18px; cursor: pointer;
+  text-decoration: none; color: var(--black);
+}
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a {
+  font-size: 14px; color: var(--black); text-decoration: none;
+  cursor: pointer; position: relative; padding-bottom: 2px;
+}
+.nav-links a.active::after,
+.nav-links a:hover::after {
+  content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+  height: 1px; background: var(--black);
+}
+.nav-right { display: flex; align-items: center; gap: 16px; }
+.search-icon, .menu-icon { cursor: pointer; font-size: 16px; background: none; border: none; color: var(--black); }
+
+/* ── BUTTONS ── */
+.btn-primary, .btn-nav {
+  display: inline-block;
+  background: var(--black); color: var(--white);
+  border: none; border-radius: 40px;
+  padding: 12px 28px; font-family: 'Outfit', sans-serif;
+  font-size: 14px; cursor: pointer; text-decoration: none;
+  font-weight: 400;
+}
+.btn-nav { padding: 8px 20px; }
+.btn-primary:hover, .btn-nav:hover { background: #333; }
+.btn-primary:disabled, .btn-nav:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.btn-outline {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: none; border: 1px solid var(--black);
+  border-radius: 40px;
+  padding: 10px 24px; font-family: 'Outfit', sans-serif;
+  font-size: 14px; cursor: pointer; text-decoration: none;
+  color: var(--black); font-weight: 400;
+}
+.btn-outline:hover { background: var(--black); color: var(--white); }
+
+.link-arrow {
+  display: inline-flex; align-items: center; gap: 4px;
+  font-size: 14px; color: var(--black); text-decoration: none; cursor: pointer;
+}
+.link-arrow:hover { text-decoration: underline; }
+
+/* ═══════════════════════════════════════
+   COMMUNITY PAGE — doodle gallery
+   ═══════════════════════════════════════ */
+
+.community-header { padding: 48px 40px 24px; max-width: 900px; }
+.community-header h1 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }
+.community-header p { font-size: 15px; color: var(--gray-mid); }
+
+#community-filters {
+  display: flex; gap: 8px; flex-wrap: wrap;
+  padding: 0 40px 24px;
+}
+.filter-tab {
+  background: var(--gray); border: none; border-radius: 40px;
+  padding: 8px 18px; font-family: 'Outfit', sans-serif;
+  font-size: 13px; cursor: pointer; color: var(--black);
+}
+.filter-tab.active { background: var(--black); color: var(--white); }
+
+#community-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 0 40px 24px;
+}
+.doodle-card {
+  background: var(--gray); border-radius: 8px; overflow: hidden;
+  text-align: center;
+}
+.doodle-card img {
+  width: 100%; aspect-ratio: 1 / 1; object-fit: cover; display: block;
+  background: var(--white);
+}
+.doodle-card figcaption {
+  font-size: 12px; color: var(--gray-mid); padding: 8px 0;
+}
+
+.empty-state {
+  grid-column: 1 / -1; text-align: center; color: var(--gray-mid);
+  font-size: 14px; padding: 40px 0;
+}
+
+#community-pagination {
+  display: flex; justify-content: center; gap: 6px;
+  padding: 0 40px 48px;
+}
+.page-btn {
+  background: var(--gray); border: none; border-radius: 50%;
+  width: 32px; height: 32px; font-family: 'Outfit', sans-serif;
+  font-size: 13px; cursor: pointer;
+}
+.page-btn.active { background: var(--black); color: var(--white); }
+
+.upload-row { display: flex; justify-content: center; padding-bottom: 48px; }
+
+/* ═══════════════════════════════════════
+   DUB TOOL PAGE — doodle ur brand
+   ═══════════════════════════════════════ */
+
+.dub-tool-header { padding: 48px 40px 24px; max-width: 700px; }
+.dub-tool-header h1 { font-size: 36px; font-weight: 700; margin-bottom: 8px; }
+.dub-tool-header p { font-size: 15px; color: var(--gray-mid); }
+
+.canvas-wrapper {
+  margin: 0 40px 24px; border: 1px solid var(--border);
+  border-radius: 8px; overflow: hidden; background: var(--gray);
+}
+#doodle-canvas {
+  display: block; width: 100%; height: 320px;
+  background: var(--white); cursor: crosshair; touch-action: none;
+}
+
+.canvas-toolbar {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 16px; background: var(--gray);
+}
+.canvas-toolbar-left { display: flex; align-items: center; gap: 12px; }
+
+.vibe-picker {
+  display: flex; gap: 8px; padding: 0 40px 24px; flex-wrap: wrap;
+}
+.vibe-option {
+  background: var(--gray); border: 1px solid transparent; border-radius: 40px;
+  padding: 8px 18px; font-family: 'Outfit', sans-serif;
+  font-size: 13px; cursor: pointer;
+}
+.vibe-option.active { background: var(--black); color: var(--white); }
+
+.generate-row { padding: 0 40px 32px; }
+
+#dub-result {
+  display: none; margin: 0 40px 48px; padding: 24px;
+  border: 1px solid var(--border); border-radius: 8px;
+}
+#dub-result.visible { display: block; }
+#dub-result h3 { font-size: 20px; margin-bottom: 16px; }
+.palette-row { display: flex; gap: 8px; margin-bottom: 16px; }
+.swatch { width: 48px; height: 48px; border-radius: 8px; border: 1px solid var(--border); }
+.result-note { color: var(--gray-mid); font-size: 13px; margin-top: 12px; }
+
+/* ═══════════════════════════════════════
+   GENERIC STATIC SECTIONS (projects/journal/about/gallery)
+   ═══════════════════════════════════════ */
+
+.section-header { padding: 48px 40px 24px; max-width: 900px; }
+.section-header h1 { font-size: 40px; font-weight: 700; margin-bottom: 8px; }
+.section-header p { font-size: 15px; color: var(--gray-mid); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px; padding: 0 40px 48px;
+}
+.content-card { cursor: pointer; }
+.content-card img {
+  width: 100%; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: 8px; background: var(--gray); margin-bottom: 12px;
+}
+.content-card h3 { font-size: 16px; margin-bottom: 4px; }
+.content-card p { font-size: 13px; color: var(--gray-mid); }
+
+/* ── HERO (landing) ── */
+.hero {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 48px; padding: 80px 40px; max-width: 1200px; margin: 0 auto;
+}
+.hero-left h1 { font-size: 56px; font-weight: 700; line-height: 1.1; margin-bottom: 24px; }
+.hero-left h1 span { color: var(--gray-mid); }
+.hero-desc { font-size: 15px; color: var(--gray-mid); max-width: 420px; margin-bottom: 32px; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 720px) {
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+  .hero { flex-direction: column; padding: 48px 16px; }
+  .hero-left h1 { font-size: 36px; }
+  .community-header, .dub-tool-header, .section-header { padding-left: 16px; padding-right: 16px; }
+  #community-filters, #community-grid, #community-pagination,
+  .canvas-wrapper, .vibe-picker, .generate-row, #dub-result, .card-grid {
+    padding-left: 16px; padding-right: 16px; margin-left: 16px; margin-right: 16px;
+  }
+}
